@@ -1,0 +1,2162 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=1200, maximum-scale=1.0" />
+    <style>
+      @import url("https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css");
+
+      /* The following line is used to measure usage of this code. You can remove it if you want. */
+
+      .screen textarea:focus,
+      .screen input:focus {
+        outline: none;
+      }
+
+      .screen * {
+        -webkit-font-smoothing: antialiased;
+        box-sizing: border-box;
+      }
+
+      .screen div {
+        -webkit-text-size-adjust: none;
+      }
+
+      .component-wrapper a {
+        display: contents;
+        pointer-events: auto;
+        text-decoration: none;
+      }
+
+      .component-wrapper * {
+        -webkit-font-smoothing: antialiased;
+        box-sizing: border-box;
+        pointer-events: none;
+      }
+
+      .component-wrapper a *,
+      .component-wrapper input,
+      .component-wrapper video,
+      .component-wrapper iframe {
+        pointer-events: auto;
+      }
+
+      .component-wrapper.not-ready,
+      .component-wrapper.not-ready * {
+        visibility: hidden !important;
+      }
+
+      .screen a {
+        display: contents;
+        text-decoration: none;
+      }
+
+      .full-width-a {
+        width: 100%;
+      }
+
+      .full-height-a {
+        height: 100%;
+      }
+
+      .container-center-vertical {
+        align-items: center;
+        display: flex;
+        flex-direction: row;
+        height: 100%;
+        pointer-events: none;
+      }
+
+      .container-center-vertical > * {
+        flex-shrink: 0;
+        pointer-events: auto;
+      }
+
+      .container-center-horizontal {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        pointer-events: none;
+        width: 100%;
+      }
+
+      .container-center-horizontal > * {
+        flex-shrink: 0;
+        pointer-events: auto;
+      }
+
+      .auto-animated div {
+        --z-index: -1;
+        opacity: 0;
+        position: absolute;
+      }
+
+      .auto-animated input {
+        --z-index: -1;
+        opacity: 0;
+        position: absolute;
+      }
+
+      .auto-animated .container-center-vertical,
+      .auto-animated .container-center-horizontal {
+        opacity: 1;
+      }
+
+      .overlay-base {
+        display: none;
+        height: 100%;
+        opacity: 0;
+        position: fixed;
+        top: 0;
+        width: 100%;
+      }
+
+      .overlay-base.animate-appear {
+        align-items: center;
+        animation: reveal 0.3s ease-in-out 1 normal forwards;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        opacity: 0;
+      }
+
+      .overlay-base.animate-disappear {
+        animation: reveal 0.3s ease-in-out 1 reverse forwards;
+        display: block;
+        opacity: 1;
+        pointer-events: none;
+      }
+
+      .overlay-base.animate-disappear * {
+        pointer-events: none;
+      }
+
+      @keyframes reveal {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      .animate-nodelay {
+        animation-delay: 0s;
+      }
+
+      .align-self-flex-start {
+        align-self: flex-start;
+      }
+
+      .align-self-flex-end {
+        align-self: flex-end;
+      }
+
+      .align-self-flex-center {
+        align-self: flex-center;
+      }
+
+      .valign-text-middle {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      .valign-text-bottom {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+      }
+
+      input:focus {
+        outline: none;
+      }
+
+      .listeners-active,
+      .listeners-active * {
+        pointer-events: auto;
+      }
+
+      .hidden,
+      .hidden * {
+        pointer-events: none;
+        visibility: hidden;
+      }
+
+      .smart-layers-pointers,
+      .smart-layers-pointers * {
+        pointer-events: auto;
+        visibility: visible;
+      }
+
+      .listeners-active-click,
+      .listeners-active-click * {
+        cursor: pointer;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+      :root {
+        --black: #000000;
+        --eerie-black: #1c1c1c;
+        --tropical-blue: #c7ddf3;
+        --white: #ffffff;
+
+        --font-size-l: 20px;
+        --font-size-m: 14px;
+        --font-size-xl: 24px;
+        --font-size-xxl: 32px;
+        --font-size-xxxl: 56px;
+        --font-size-xxxxl: 64px;
+
+        --font-family-adobe_caslon_pro-regular: "Adobe Caslon Pro-Regular",
+          Helvetica;
+        --font-family-big_caslon-medium: "Big Caslon-Medium", Helvetica;
+        --font-family-proxima_nova-bold: "Proxima Nova-Bold", Helvetica;
+        --font-family-proxima_nova-regular: "Proxima Nova-Regular", Helvetica;
+      }
+      .proximanova-bold-black-20px {
+        color: var(--black);
+        font-family: var(--font-family-proxima_nova-bold);
+        font-size: var(--font-size-l);
+        font-style: normal;
+        font-weight: 700;
+      }
+
+      .proximanova-regular-normal-white-14px {
+        color: var(--white);
+        font-family: var(--font-family-proxima_nova-regular);
+        font-size: var(--font-size-m);
+        font-style: normal;
+        font-weight: 400;
+      }
+
+      .proximanova-regular-normal-black-24px {
+        color: var(--black);
+        font-family: var(--font-family-proxima_nova-regular);
+        font-size: var(--font-size-xl);
+        font-style: normal;
+        font-weight: 400;
+      }
+
+      .adobecaslonpro-regular-normal-eerie-black-32px {
+        color: var(--eerie-black);
+        font-family: var(--font-family-adobe_caslon_pro-regular);
+        font-size: var(--font-size-xxl);
+        font-style: normal;
+        font-weight: 400;
+      }
+
+      .proximanova-regular-normal-black-20px {
+        color: var(--black);
+        font-family: var(--font-family-proxima_nova-regular);
+        font-size: var(--font-size-l);
+        font-style: normal;
+        font-weight: 400;
+      }
+
+      .proximanova-regular-normal-eerie-black-24px {
+        color: var(--eerie-black);
+        font-family: var(--font-family-proxima_nova-regular);
+        font-size: var(--font-size-xl);
+        font-style: normal;
+        font-weight: 400;
+      }
+
+      .proximanova-regular-normal-eerie-black-20px {
+        color: var(--eerie-black);
+        font-family: var(--font-family-proxima_nova-regular);
+        font-size: var(--font-size-l);
+        font-style: normal;
+        font-weight: 400;
+      }
+
+      .proximanova-bold-white-14px {
+        color: var(--white);
+        font-family: var(--font-family-proxima_nova-bold);
+        font-size: var(--font-size-m);
+        font-style: normal;
+        font-weight: 700;
+      }
+
+      .email-2 {
+        align-items: center;
+        background-color: var(--white);
+        display: flex;
+        flex-direction: column;
+        max-width: 100%;
+      }
+
+      .email-2 .eyebrow-AXSl1V {
+        align-items: center;
+        background-color: var(--white);
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        height: 204px;
+        justify-content: center;
+        overflow: hidden;
+        padding: 56px 16px;
+        position: relative;
+        width: 1200px;
+      }
+
+      .email-2 .layer_1-OBXrwf {
+        background-color: transparent;
+        height: 100px;
+        margin-bottom: -4px;
+        margin-top: 20px;
+        overflow: hidden;
+        position: relative;
+        width: 227.75685119628906px;
+      }
+
+      .email-2 .kisspng-logo-brand-p-9F6aK9 {
+        background-color: var(--tropical-blue);
+        height: 104px;
+        left: -0px;
+        position: absolute;
+        top: 1px;
+        width: 228px;
+      }
+
+      .email-2 .logo-9F6aK9 {
+        background-color: transparent;
+        color: var(--black);
+        font-family: var(--font-family-big_caslon-medium);
+        font-size: var(--font-size-xxxl);
+        font-style: normal;
+        font-weight: 500;
+        height: auto;
+        left: 18px;
+        letter-spacing: 0px;
+        line-height: 56px;
+        position: absolute;
+        text-align: center;
+        top: 19px;
+        white-space: nowrap;
+        width: 192px;
+      }
+
+      .email-2 .header-AXSl1V {
+        align-items: center;
+        background-color: var(--white);
+        flex-direction: column;
+        gap: 56px;
+        justify-content: center;
+        padding: 56px 96px 40px;
+      }
+
+      .email-2 .frame-4-T3C5PA {
+        align-items: center;
+        align-self: stretch;
+        flex: 0 0 auto;
+        gap: 40px;
+        justify-content: center;
+        width: 100%;
+      }
+
+      .email-2 .title-Ugcvrj {
+        align-self: stretch;
+        background-color: transparent;
+        color: var(--eerie-black);
+        font-family: var(--font-family-big_caslon-medium);
+        font-size: var(--font-size-xxxxl);
+        font-style: normal;
+        font-weight: 500;
+        letter-spacing: 0px;
+        line-height: 64px;
+        margin-top: -1px;
+        position: relative;
+        text-align: center;
+      }
+
+      .email-2 .header-tY2THt {
+        align-items: center;
+        background-color: var(--eerie-black);
+        flex-direction: column;
+        gap: 56px;
+        justify-content: center;
+      }
+
+      .email-2 .frame-5-PuBXT1 {
+        align-self: stretch;
+        background-color: var(--white);
+        height: 500px;
+        overflow: hidden;
+        position: relative;
+        width: 100%;
+      }
+
+      .email-2 .lu_2025_-exterior-re-5BargY {
+        background-color: transparent;
+        height: 806px;
+        left: -7px;
+        object-fit: cover;
+        position: absolute;
+        top: -196px;
+        width: 100%;
+      }
+
+      .email-2 .rectangle-2-5BargY {
+        background-color: transparent;
+        border: 3px solid;
+        border-color: var(--tropical-blue);
+        height: 400px;
+        left: 50px;
+        position: absolute;
+        top: 50px;
+        width: 1200px;
+      }
+
+      .email-2 .header-enpGcE {
+        align-items: flex-start;
+        background-color: var(--white);
+        flex-direction: column;
+        gap: 48px;
+        padding: 64px 96px;
+      }
+
+      .email-2 .dear-mr-smith-r4NR9z {
+        align-self: stretch;
+        background-color: transparent;
+        letter-spacing: 0px;
+        line-height: 24px;
+        margin-top: -1px;
+        position: relative;
+        text-align: left;
+      }
+
+      .email-2 .i-hope-this-email-fi-r4NR9z {
+        background-color: transparent;
+        letter-spacing: 0.48px;
+        line-height: 28.8px;
+        position: relative;
+        text-align: left;
+        width: 931.14208984375px;
+      }
+
+      .email-2 .frame-29-AXSl1V {
+        align-items: flex-start;
+        align-self: stretch;
+        background-color: transparent;
+        display: flex;
+        flex: 0 0 auto;
+        flex-direction: column;
+        gap: 10px;
+        padding: 10px 96px;
+        position: relative;
+        width: 100%;
+      }
+
+      .email-2 .header-i3HmxT {
+        align-items: flex-start;
+        background-color: var(--white);
+        flex-direction: column;
+        gap: 32px;
+        padding: 56px 96px;
+      }
+
+      .email-2 .pre-hotel-option-the-J3ihPO {
+        background-color: transparent;
+        letter-spacing: 0.64px;
+        line-height: 38.4px;
+        margin-right: -12px;
+        margin-top: -1px;
+        position: relative;
+        text-align: left;
+        white-space: nowrap;
+        width: fit-content;
+      }
+
+      .email-2 .data-B4YcI9 {
+        align-self: stretch;
+        background-color: transparent;
+        display: flex;
+        flex: 1;
+        flex-grow: 1;
+        justify-content: space-between;
+      }
+
+      .email-2 .data-27phgq {
+        background-color: transparent;
+        display: inline-flex;
+        flex: 0 0 auto;
+        gap: 8px;
+        margin-bottom: -1px;
+        margin-left: -1px;
+        margin-top: -1px;
+        overflow: hidden;
+      }
+
+      .email-2 .data-7PMljm {
+        background-color: transparent;
+        display: inline-flex;
+        flex: 0 0 auto;
+        gap: 8px;
+        margin-bottom: -1px;
+        margin-top: -1px;
+        overflow: hidden;
+      }
+
+      .email-2 .hotel-f2faeX {
+        align-items: flex-start;
+        align-self: stretch;
+        background-color: #c7ddf380;
+        display: flex;
+        flex: 0 0 auto;
+        flex-direction: column;
+        gap: 8px;
+        padding: 16px;
+        position: relative;
+        width: 100%;
+      }
+
+      .email-2 .data-G7yKCM {
+        align-self: stretch;
+        background-color: transparent;
+        display: flex;
+        gap: 8px;
+        height: 72px;
+        margin-left: -1px;
+        margin-right: -1px;
+        margin-top: -1px;
+        overflow: hidden;
+        width: 100%;
+      }
+
+      .email-2 .hotel-eNkR2F {
+        background-color: transparent;
+        letter-spacing: 0px;
+        line-height: normal;
+        margin-top: -0.5px;
+        position: relative;
+        text-align: left;
+        white-space: nowrap;
+        width: fit-content;
+      }
+
+      .email-2 .data-2YFsUE {
+        align-self: stretch;
+        background-color: transparent;
+        display: flex;
+        flex: 0 0 auto;
+        gap: 8px;
+        margin-bottom: -1px;
+        margin-left: -1px;
+        margin-right: -1px;
+        overflow: hidden;
+        width: 100%;
+      }
+
+      .email-2 .data-HfkObN {
+        align-self: stretch;
+        background-color: transparent;
+        display: flex;
+        flex: 0 0 auto;
+        gap: 8px;
+        margin-bottom: -1px;
+        margin-left: -1px;
+        margin-right: -1px;
+        margin-top: -1px;
+        overflow: hidden;
+        width: 100%;
+      }
+
+      .email-2 .data-RcW3Mg {
+        background-color: transparent;
+        display: flex;
+        flex: 1;
+        flex-grow: 1;
+        gap: 24px;
+      }
+
+      .email-2 .data-PlOEqt {
+        align-self: stretch;
+        background-color: transparent;
+        display: flex;
+        flex: 0 0 auto;
+        gap: 8px;
+        margin-bottom: -1px;
+        margin-left: -1px;
+        margin-right: -1px;
+        margin-top: -1px;
+        overflow: hidden;
+        width: 100%;
+      }
+
+      .email-2 .data-9xso9T {
+        align-self: stretch;
+        background-color: transparent;
+        display: flex;
+        flex: 0 0 auto;
+        gap: 8px;
+        width: 100%;
+      }
+
+      .email-2 .data-WSIkKS {
+        align-self: stretch;
+        background-color: transparent;
+        display: flex;
+        flex: 0 0 auto;
+        gap: 8px;
+        margin-left: -1px;
+        margin-right: -1px;
+        margin-top: -1px;
+        overflow: hidden;
+        width: 100%;
+      }
+
+      .email-2 .data-Ynr58t {
+        align-self: stretch;
+        background-color: transparent;
+        display: flex;
+        flex: 0 0 auto;
+        gap: 8px;
+        margin-bottom: -1px;
+        margin-left: -1px;
+        margin-right: -1px;
+        margin-top: -1px;
+        overflow: hidden;
+        width: 100%;
+      }
+
+      .email-2 .data-tfb6Ik {
+        align-self: stretch;
+        background-color: #1c1c1c0d;
+        display: flex;
+        gap: 24px;
+        justify-content: flex-end;
+        padding: 16px;
+        width: 300px;
+      }
+
+      .email-2 .data-Ak4H9P {
+        align-self: stretch;
+        background-color: transparent;
+        display: flex;
+        flex: 0 0 auto;
+        gap: 8px;
+        width: 100%;
+      }
+
+      .email-2 .frame-31-AXSl1V {
+        align-items: flex-start;
+        align-self: stretch;
+        background-color: transparent;
+        display: flex;
+        flex: 0 0 auto;
+        flex-direction: column;
+        gap: 10px;
+        padding: 10px 96px;
+        position: relative;
+        width: 100%;
+      }
+
+      .email-2 .header-XYm0EK {
+        align-items: flex-start;
+        background-color: var(--white);
+        flex-direction: column;
+        gap: 32px;
+        padding: 56px 96px;
+      }
+
+      .email-2 .post-hotel-option-th-wWjdk0 {
+        background-color: transparent;
+        letter-spacing: 0.64px;
+        line-height: 38.4px;
+        margin-right: -25px;
+        margin-top: -1px;
+        position: relative;
+        text-align: left;
+        white-space: nowrap;
+        width: fit-content;
+      }
+
+      .email-2 .data-k8gudA {
+        align-self: stretch;
+        background-color: transparent;
+        display: flex;
+        flex: 1;
+        flex-grow: 1;
+        justify-content: space-between;
+      }
+
+      .email-2 .data-r16NTn {
+        background-color: transparent;
+        display: inline-flex;
+        flex: 0 0 auto;
+        gap: 8px;
+        margin-bottom: -1px;
+        margin-left: -1px;
+        margin-top: -1px;
+        overflow: hidden;
+      }
+
+      .email-2 .data-VIFKiy {
+        background-color: transparent;
+        display: inline-flex;
+        flex: 0 0 auto;
+        gap: 8px;
+        margin-bottom: -1px;
+        margin-top: -1px;
+        overflow: hidden;
+      }
+
+      .email-2 .hotel-cke7vX {
+        align-items: flex-start;
+        align-self: stretch;
+        background-color: #c7ddf380;
+        display: flex;
+        flex: 0 0 auto;
+        flex-direction: column;
+        gap: 8px;
+        padding: 16px;
+        position: relative;
+        width: 100%;
+      }
+
+      .email-2 .data-7IAE1p {
+        align-self: stretch;
+        background-color: transparent;
+        display: flex;
+        gap: 8px;
+        height: 72px;
+        margin-left: -1px;
+        margin-right: -1px;
+        margin-top: -1px;
+        overflow: hidden;
+        width: 100%;
+      }
+
+      .email-2 .hotel-zhZlOW {
+        background-color: transparent;
+        letter-spacing: 0px;
+        line-height: normal;
+        margin-top: -0.5px;
+        position: relative;
+        text-align: left;
+        white-space: nowrap;
+        width: fit-content;
+      }
+
+      .email-2 .data-nSqUtb {
+        align-self: stretch;
+        background-color: transparent;
+        display: flex;
+        flex: 0 0 auto;
+        gap: 8px;
+        margin-bottom: -1px;
+        margin-left: -1px;
+        margin-right: -1px;
+        overflow: hidden;
+        width: 100%;
+      }
+
+      .email-2 .data-nBeK2L {
+        align-self: stretch;
+        background-color: transparent;
+        display: flex;
+        flex: 0 0 auto;
+        gap: 8px;
+        margin-bottom: -1px;
+        margin-left: -1px;
+        margin-right: -1px;
+        margin-top: -1px;
+        overflow: hidden;
+        width: 100%;
+      }
+
+      .email-2 .data-zrSQfe {
+        background-color: transparent;
+        display: flex;
+        flex: 1;
+        flex-grow: 1;
+        gap: 24px;
+      }
+
+      .email-2 .data-87Rrw6 {
+        align-self: stretch;
+        background-color: transparent;
+        display: flex;
+        flex: 0 0 auto;
+        gap: 8px;
+        margin-bottom: -1px;
+        margin-left: -1px;
+        margin-right: -1px;
+        margin-top: -1px;
+        overflow: hidden;
+        width: 100%;
+      }
+
+      .email-2 .data-wt8WRK {
+        align-self: stretch;
+        background-color: transparent;
+        display: flex;
+        flex: 0 0 auto;
+        gap: 8px;
+        width: 100%;
+      }
+
+      .email-2 .data-iHFqDs {
+        align-self: stretch;
+        background-color: transparent;
+        display: flex;
+        flex: 0 0 auto;
+        gap: 8px;
+        margin-left: -1px;
+        margin-right: -1px;
+        margin-top: -1px;
+        overflow: hidden;
+        width: 100%;
+      }
+
+      .email-2 .data-DeAVpU {
+        align-self: stretch;
+        background-color: transparent;
+        display: flex;
+        flex: 0 0 auto;
+        gap: 8px;
+        margin-bottom: -1px;
+        margin-left: -1px;
+        margin-right: -1px;
+        margin-top: -1px;
+        overflow: hidden;
+        width: 100%;
+      }
+
+      .email-2 .data-QLGjdd {
+        align-self: stretch;
+        background-color: #1c1c1c0d;
+        display: flex;
+        gap: 24px;
+        justify-content: flex-end;
+        padding: 16px;
+        width: 300px;
+      }
+
+      .email-2 .data-fCGrES {
+        align-self: stretch;
+        background-color: transparent;
+        display: flex;
+        flex: 0 0 auto;
+        gap: 8px;
+        width: 100%;
+      }
+
+      .email-2 .frame-30-AXSl1V {
+        align-items: flex-start;
+        align-self: stretch;
+        background-color: transparent;
+        display: flex;
+        flex: 0 0 auto;
+        flex-direction: column;
+        gap: 10px;
+        padding: 10px 96px;
+        position: relative;
+        width: 100%;
+      }
+
+      .email-2 .header-IGfI8D {
+        align-items: flex-start;
+        background-color: var(--white);
+        flex-direction: column;
+        gap: 48px;
+        padding: 64px 96px;
+      }
+
+      .email-2 .i-would-be-delighted-MSfdlp {
+        background-color: transparent;
+        letter-spacing: 0.48px;
+        line-height: 28.8px;
+        margin-top: -1px;
+        position: relative;
+        text-align: left;
+        width: 931.14208984375px;
+      }
+
+      .email-2 .kind-regards-MSfdlp {
+        align-self: stretch;
+        background-color: transparent;
+        letter-spacing: 0px;
+        line-height: 24px;
+        position: relative;
+        text-align: left;
+      }
+
+      .email-2 .header-gJZuBW {
+        align-items: flex-start;
+        background-color: var(--white);
+        gap: 40px;
+        justify-content: flex-end;
+        padding: 0px 94px 64px;
+      }
+
+      .email-2 .frame-21-TUh8ee {
+        background-color: transparent;
+        border: 1px solid;
+        border-color: var(--tropical-blue);
+        height: 82px;
+        margin-left: -1px;
+        margin-top: -1px;
+        overflow: hidden;
+        position: relative;
+        width: 82px;
+      }
+
+      .email-2 .rashed-moslem-u0-w4xy-wqqa-unsplash-1-mxMWEx {
+        background-color: transparent;
+        height: 680px;
+        left: -186px;
+        object-fit: cover;
+        position: absolute;
+        top: -282px;
+        width: 454px;
+      }
+
+      .email-2 .frame-4-TUh8ee {
+        align-items: flex-start;
+        flex: 1;
+        flex-grow: 1;
+        gap: 24px;
+      }
+
+      .email-2 .john-doe-xJqjP9 {
+        background-color: transparent;
+        letter-spacing: 0.64px;
+        line-height: 32px;
+        margin-top: -1px;
+        position: relative;
+        text-align: left;
+        white-space: nowrap;
+        width: fit-content;
+      }
+
+      .email-2 .flex-container-0534-xJqjP9 {
+        align-items: flex-start;
+        background-color: transparent;
+        display: inline-flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .email-2 .text0-0534-J5XyO1 {
+        align-self: stretch;
+        background-color: transparent;
+        letter-spacing: 0.4px;
+        line-height: 20px;
+        position: relative;
+        text-align: left;
+      }
+
+      .email-2 .span0-7eLgc7 {
+        letter-spacing: 0.08px;
+      }
+
+      .email-2 .text1-0534-J5XyO1 {
+        align-self: stretch;
+        background-color: transparent;
+        letter-spacing: 0.4px;
+        line-height: 20px;
+        position: relative;
+        text-align: left;
+      }
+
+      .email-2 .span1-iPLhrJ {
+        letter-spacing: 0.08px;
+      }
+
+      .email-2 .header-eonbX8 {
+        align-items: center;
+        background-color: var(--tropical-blue);
+        flex-direction: column;
+        gap: 18px;
+        justify-content: center;
+        padding: 40px 120px;
+      }
+
+      .email-2 .lorem-ipsum-dolor-sit-amet-consectetur-RV59LM {
+        align-self: stretch;
+        background-color: transparent;
+        letter-spacing: 0px;
+        line-height: 38.4px;
+        margin-top: -1px;
+        position: relative;
+        text-align: center;
+      }
+
+      .email-2 .header-YFsH9I {
+        align-items: flex-start;
+        background-color: var(--eerie-black);
+        flex-direction: column;
+        gap: 40px;
+        justify-content: center;
+        padding: 56px 96px;
+      }
+
+      .email-2 .frame-11-q4dAPo {
+        align-items: flex-start;
+        align-self: stretch;
+        display: flex;
+        gap: 48px;
+        width: 100%;
+      }
+
+      .email-2 .frame-9-AUmtC8 {
+        align-items: center;
+        background-color: transparent;
+        display: inline-flex;
+        flex: 0 0 auto;
+        flex-direction: column;
+        gap: 2px;
+        justify-content: center;
+        position: relative;
+      }
+
+      .email-2 .lorem-ipsum-HxbSqA {
+        margin-top: -1px;
+      }
+
+      .email-2 .frame-11-AUmtC8 {
+        align-items: center;
+        display: inline-flex;
+        flex-direction: column;
+        gap: 2px;
+        justify-content: center;
+      }
+
+      .email-2 .lorem-ipsum-0wSSdk {
+        margin-top: -1px;
+      }
+
+      .email-2 .frame-12-AUmtC8 {
+        align-items: center;
+        background-color: transparent;
+        display: inline-flex;
+        flex: 0 0 auto;
+        flex-direction: column;
+        gap: 2px;
+        justify-content: center;
+        position: relative;
+      }
+
+      .email-2 .lorem-ipsum-edlcEZ {
+        margin-top: -1px;
+      }
+
+      .email-2 .frame-10-AUmtC8 {
+        align-items: center;
+        background-color: transparent;
+        display: inline-flex;
+        flex: 0 0 auto;
+        flex-direction: column;
+        gap: 2px;
+        justify-content: center;
+        position: relative;
+      }
+
+      .email-2 .lorem-ipsum-HUqtuk {
+        margin-top: -1px;
+      }
+
+      .email-2 .flex-container-0559-q4dAPo {
+        align-items: flex-start;
+        background-color: transparent;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .email-2 .text0-0559-tsN71L {
+        align-self: stretch;
+        background-color: transparent;
+        letter-spacing: 0.28px;
+        line-height: 21px;
+        position: relative;
+        text-align: left;
+      }
+
+      .email-2 .span0-OxT1E0 {
+        letter-spacing: 0.04px;
+      }
+
+      .email-2 .text1-0559-tsN71L {
+        align-self: stretch;
+        background-color: transparent;
+        letter-spacing: 0.28px;
+        line-height: 21px;
+        position: relative;
+        text-align: left;
+      }
+
+      .email-2 .span1-Swq6s2 {
+        letter-spacing: 0.04px;
+      }
+
+      .email-2 .frame-8-q4dAPo {
+        align-items: flex-start;
+        background-color: transparent;
+        display: inline-flex;
+        flex: 0 0 auto;
+        gap: 25px;
+        justify-content: center;
+        position: relative;
+      }
+
+      .email-2 .instagram-CjJexf {
+        background-color: transparent;
+        height: 25px;
+        position: relative;
+        width: 25px;
+      }
+
+      .email-2 .facebook-CjJexf {
+        background-color: transparent;
+        height: 25px;
+        position: relative;
+        width: 14.247314453125px;
+      }
+
+      .email-2 .x-logo-CjJexf {
+        background-color: transparent;
+        height: 25px;
+        position: relative;
+        width: 27.6923828125px;
+      }
+
+      .email-2 .address {
+        background-color: transparent;
+        letter-spacing: 0px;
+        line-height: normal;
+        margin-top: -0.5px;
+        position: relative;
+        text-align: left;
+        white-space: nowrap;
+        width: fit-content;
+      }
+
+      .email-2 .april-13-2025 {
+        background-color: transparent;
+        letter-spacing: 0px;
+        line-height: normal;
+        position: relative;
+        text-align: left;
+        width: fit-content;
+      }
+
+      .email-2 .april-14-2025 {
+        background-color: transparent;
+        letter-spacing: 0px;
+        line-height: normal;
+        position: relative;
+        text-align: left;
+        width: fit-content;
+      }
+
+      .email-2 .capelo-guestroom {
+        align-self: stretch;
+        background-color: transparent;
+        letter-spacing: 0px;
+        line-height: normal;
+        position: relative;
+        text-align: left;
+      }
+
+      .email-2 .check-in {
+        background-color: transparent;
+        letter-spacing: 0px;
+        line-height: normal;
+        margin-top: -0.5px;
+        position: relative;
+        text-align: left;
+        white-space: nowrap;
+        width: fit-content;
+      }
+
+      .email-2 .check-out {
+        background-color: transparent;
+        letter-spacing: 0px;
+        line-height: normal;
+        margin-top: -0.5px;
+        position: relative;
+        text-align: left;
+        white-space: nowrap;
+        width: fit-content;
+      }
+
+      .email-2 .daily-breakfast-for {
+        align-self: stretch;
+        background-color: transparent;
+        letter-spacing: 0px;
+        line-height: normal;
+        margin-top: -0.5px;
+        position: relative;
+        text-align: left;
+      }
+
+      .email-2 .data {
+        align-items: flex-start;
+        flex-direction: column;
+        position: relative;
+      }
+
+      .email-2 .dates {
+        align-items: flex-start;
+        align-self: stretch;
+        background-color: transparent;
+        display: flex;
+        flex: 0 0 auto;
+        gap: 32px;
+        position: relative;
+        width: 100%;
+      }
+
+      .email-2 .ellipse-5 {
+        background-color: var(--tropical-blue);
+        border-radius: 2.5px;
+        height: 5px;
+        position: relative;
+        width: 5px;
+      }
+
+      .email-2 .frame-11 {
+        background-color: transparent;
+        flex: 0 0 auto;
+        position: relative;
+      }
+
+      .email-2 .frame-14 {
+        align-items: flex-start;
+        align-self: stretch;
+        background-color: transparent;
+        display: flex;
+        flex: 0 0 auto;
+        gap: 56px;
+        position: relative;
+        width: 100%;
+      }
+
+      .email-2 .frame-25 {
+        align-items: flex-start;
+        align-self: stretch;
+        background-color: transparent;
+        display: flex;
+        flex: 0 0 auto;
+        flex-direction: column;
+        gap: 16px;
+        position: relative;
+        width: 100%;
+      }
+
+      .email-2 .frame-26 {
+        align-items: center;
+        background-color: transparent;
+        display: inline-flex;
+        flex: 0 0 auto;
+        gap: 8px;
+        position: relative;
+      }
+
+      .email-2 .frame-27 {
+        align-items: center;
+        background-color: transparent;
+        display: inline-flex;
+        flex: 0 0 auto;
+        gap: 8px;
+        position: relative;
+      }
+
+      .email-2 .frame-28 {
+        align-items: flex-start;
+        align-self: stretch;
+        background-color: transparent;
+        display: flex;
+        flex: 0 0 auto;
+        gap: 24px;
+        position: relative;
+        width: 100%;
+      }
+
+      .email-2 .frame-4 {
+        background-color: transparent;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+      }
+
+      .email-2 .header {
+        display: flex;
+        flex: 0 0 auto;
+        overflow: hidden;
+        position: relative;
+        width: 100%;
+      }
+
+      .email-2 .hotel-accommodation {
+        align-self: stretch;
+        background-color: transparent;
+        letter-spacing: 0px;
+        line-height: normal;
+        margin-top: -0.5px;
+        position: relative;
+        text-align: left;
+      }
+
+      .email-2 .il_2024_-the-marina_001jpg-1 {
+        background-color: transparent;
+        height: 372px;
+        left: -71px;
+        object-fit: cover;
+        position: absolute;
+        top: 0px;
+        width: 558px;
+      }
+
+      .email-2 .image {
+        background-color: transparent;
+        height: 356px;
+        overflow: hidden;
+        position: relative;
+        width: 300px;
+      }
+
+      .email-2 .line-2 {
+        align-self: stretch;
+        background-color: transparent;
+        height: 1px;
+        margin-top: -1px;
+        object-fit: cover;
+        position: relative;
+        width: 100%;
+      }
+
+      .email-2 .lorem-ipsum {
+        background-color: transparent;
+        letter-spacing: 0.28px;
+        line-height: 21px;
+        position: relative;
+        text-align: left;
+        white-space: nowrap;
+        width: fit-content;
+      }
+
+      .email-2 .marriott-bonvoy-earning-pointsnights {
+        align-self: stretch;
+        background-color: transparent;
+        letter-spacing: 0px;
+        line-height: normal;
+        position: relative;
+        text-align: left;
+      }
+
+      .email-2 .package {
+        align-items: flex-start;
+        background-color: var(--white);
+        display: flex;
+        flex: 0 0 auto;
+        flex-direction: column;
+        gap: 24px;
+        overflow: hidden;
+        padding: 0px 96px 56px;
+        position: relative;
+        width: 1200px;
+      }
+
+      .email-2 .package-includes {
+        background-color: transparent;
+        letter-spacing: 0.64px;
+        line-height: 38.4px;
+        margin-top: -1px;
+        position: relative;
+        text-align: left;
+        white-space: nowrap;
+        width: fit-content;
+      }
+
+      .email-2 .per-room-based-on-do {
+        align-self: stretch;
+        background-color: transparent;
+        letter-spacing: 0px;
+        line-height: normal;
+        position: relative;
+        text-align: left;
+      }
+
+      .email-2 .pre-voyage-transfers {
+        align-self: stretch;
+        background-color: transparent;
+        letter-spacing: 0px;
+        line-height: normal;
+        margin-top: -0.5px;
+        position: relative;
+        text-align: left;
+      }
+
+      .email-2 .price {
+        align-self: stretch;
+        background-color: transparent;
+        letter-spacing: 0px;
+        line-height: normal;
+        margin-top: -1px;
+        position: relative;
+        text-align: left;
+      }
+
+      .email-2 .private-transfer-fro {
+        background-color: transparent;
+        letter-spacing: 0px;
+        line-height: normal;
+        margin-top: -1px;
+        position: relative;
+        text-align: left;
+        white-space: nowrap;
+        width: fit-content;
+      }
+
+      .email-2 .room {
+        align-items: flex-start;
+        align-self: stretch;
+        background-color: transparent;
+        display: flex;
+        flex: 0 0 auto;
+        flex-direction: column;
+        gap: 8px;
+        position: relative;
+        width: 100%;
+      }
+
+      .email-2 .room-category {
+        background-color: transparent;
+        letter-spacing: 0px;
+        line-height: normal;
+        margin-top: -0.5px;
+        position: relative;
+        text-align: left;
+        white-space: nowrap;
+        width: fit-content;
+      }
+
+      .email-2 .shared-transfer-from {
+        background-color: transparent;
+        letter-spacing: 0px;
+        line-height: normal;
+        margin-top: -1px;
+        position: relative;
+        text-align: left;
+        white-space: nowrap;
+        width: fit-content;
+      }
+
+      .email-2 .taxes-and-fees {
+        align-self: stretch;
+        background-color: transparent;
+        letter-spacing: 0px;
+        line-height: normal;
+        position: relative;
+        text-align: left;
+      }
+
+      .email-2 .the-dalmar-fort-laud {
+        align-self: stretch;
+        background-color: transparent;
+        letter-spacing: 0px;
+        line-height: normal;
+        position: relative;
+        text-align: left;
+      }
+
+      .email-2 .x1738-usd {
+        background-color: transparent;
+        letter-spacing: 0px;
+        line-height: normal;
+        position: relative;
+        text-align: left;
+        width: fit-content;
+      }
+
+      .email-2 .x299-north-federal-hi {
+        align-self: stretch;
+        background-color: transparent;
+        letter-spacing: 0px;
+        line-height: normal;
+        position: relative;
+        text-align: left;
+      }
+    </style>
+   
+  </head>
+  <body>
+    <div class="email-2 screen" data-id="0:370">
+        <div class="layer_1-OBXrwf" data-id="1:404">
+          <div class="kisspng-logo-brand-p-9F6aK9" data-id="1:405"></div>
+          <div class="logo-9F6aK9" data-id="1:406">LOGO</div>
+        </div>
+      <div class="header-AXSl1V header" data-id="0:404">
+        <div class="frame-4-T3C5PA frame-4" data-id="0:407">
+          <h1 class="title-Ugcvrj" data-id="0:408">
+            Updates on your upcoming voyage
+          </h1>
+        </div>
+      </div>
+      <div class="header-tY2THt header" data-id="0:410">
+        <div class="frame-5-PuBXT1" data-id="0:411">
+          <img
+            class="lu_2025_-exterior-re-5BargY"
+            data-id="0:412"
+            src="/cruise.jpg"
+            alt="LU_2025_Exterior Rendering_Alaska_001 1"
+          />
+          <div class="rectangle-2-5BargY" data-id="0:413"></div>
+        </div>
+      </div>
+      <div class="header-enpGcE header" data-id="0:414">
+        <div
+          class="dear-mr-smith-r4NR9z proximanova-regular-normal-eerie-black-24px"
+          data-id="0:415"
+        >
+          Dear Mr. Smith,
+        </div>
+        <p
+          class="i-hope-this-email-fi-r4NR9z proximanova-regular-normal-eerie-black-24px"
+          data-id="0:416"
+        >
+          I hope this email finds you well. I’m pleased to share the Pre- and
+          Post-Hotel options for your upcoming voyage:
+        </p>
+      </div>
+      <div class="frame-29-AXSl1V" data-id="0:418">
+        <img
+          class="line-2"
+          data-id="0:419"
+          src="https://cdn.animaapp.com/projects/67d1d84184d1eac8ff8df047/releases/67d1e3da6284afade1df9831/img/line-2.svg"
+          anima-src="https://cdn.animaapp.com/projects/67d1d84184d1eac8ff8df047/releases/67d1e3da6284afade1df9831/img/line-2.svg"
+          alt="Line 2"
+        />
+      </div>
+      <div class="header-i3HmxT header" data-id="0:420">
+        <p
+          class="pre-hotel-option-the-J3ihPO adobecaslonpro-regular-normal-eerie-black-32px"
+          data-id="0:421"
+        >
+          Pre-Hotel Option – The Dalmar, Fort Lauderdale, a Tribute Portfolio
+          Hotel
+        </p>
+        <div class="frame-14" data-id="0:422">
+          <div class="image" data-id="0:423">
+            <img
+              class="il_2024_-the-marina_001jpg-1"
+              data-id="0:424"
+              src="/inside-cruise.png"
+              alt="IL_2024_The Marina_001jpg 1"
+            />
+          </div>
+          <div class="data-B4YcI9 data" data-id="0:425">
+            <div class="dates" data-id="0:426">
+              <div class="data-27phgq data" data-id="0:427">
+                <div
+                  class="check-in proximanova-bold-black-20px"
+                  data-id="0:428"
+                >
+                  Check-in:
+                </div>
+                <div
+                  class="april-13-2025 proximanova-regular-normal-black-24px"
+                  data-id="0:429"
+                >
+                  April 13, 2025
+                </div>
+              </div>
+              <div class="data-7PMljm data" data-id="0:430">
+                <div
+                  class="check-out proximanova-bold-black-20px"
+                  data-id="0:431"
+                >
+                  Check-out:
+                </div>
+                <div
+                  class="april-14-2025 proximanova-regular-normal-black-24px"
+                  data-id="0:432"
+                >
+                  April 14, 2025
+                </div>
+              </div>
+            </div>
+            <div class="hotel-f2faeX" data-id="0:433">
+              <div class="data-G7yKCM data" data-id="0:434">
+                <div
+                  class="hotel-eNkR2F proximanova-bold-black-20px"
+                  data-id="0:435"
+                >
+                  Hotel:
+                </div>
+                <p
+                  class="the-dalmar-fort-laud proximanova-regular-normal-black-24px"
+                  data-id="0:436"
+                >
+                  The Dalmar, Fort Lauderdale, a Tribute Portfolio Hotel
+                </p>
+              </div>
+              <div class="data-2YFsUE data" data-id="0:437">
+                <div
+                  class="address proximanova-bold-black-20px"
+                  data-id="0:438"
+                >
+                  Address:
+                </div>
+                <p
+                  class="x299-north-federal-hi proximanova-regular-normal-black-24px"
+                  data-id="0:439"
+                >
+                  299 North Federal Highway, Fort Lauderdale, Florida, USA
+                </p>
+              </div>
+            </div>
+            <div class="room" data-id="0:440">
+              <div class="data-HfkObN data" data-id="0:441">
+                <div
+                  class="room-category proximanova-bold-black-20px"
+                  data-id="0:442"
+                >
+                  Room Category:
+                </div>
+                <div
+                  class="capelo-guestroom proximanova-regular-normal-black-24px"
+                  data-id="0:443"
+                >
+                  Capelo Guestroom
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="package" data-id="0:444">
+        <div
+          class="package-includes adobecaslonpro-regular-normal-eerie-black-32px"
+          data-id="0:445"
+        >
+          Package Includes:
+        </div>
+        <div class="frame-28" data-id="0:446">
+          <div class="data-RcW3Mg data" data-id="0:447">
+            <div class="frame-25" data-id="0:448">
+              <div class="room" data-id="0:449">
+                <div class="data-PlOEqt data" data-id="0:450">
+                  <div
+                    class="hotel-accommodation proximanova-bold-black-20px"
+                    data-id="0:451"
+                  >
+                    Hotel accommodation
+                  </div>
+                </div>
+              </div>
+              <div class="data-9xso9T data" data-id="0:452">
+                <div class="data-WSIkKS data" data-id="0:453">
+                  <div
+                    class="pre-voyage-transfers proximanova-bold-black-20px"
+                    data-id="0:454"
+                  >
+                    Pre-voyage transfers
+                  </div>
+                </div>
+                <div class="frame-26" data-id="0:455">
+                  <div class="ellipse-5" data-id="0:456"></div>
+                  <p
+                    class="shared-transfer-from proximanova-regular-normal-black-20px"
+                    data-id="0:457"
+                  >
+                    Shared transfer from the hotel to the pier
+                  </p>
+                </div>
+                <div class="frame-27" data-id="0:458">
+                  <div class="ellipse-5" data-id="0:459"></div>
+                  <p
+                    class="private-transfer-fro proximanova-regular-normal-black-20px"
+                    data-id="0:460"
+                  >
+                    Private transfer from the airport to the hotel
+                  </p>
+                </div>
+              </div>
+              <div class="room" data-id="0:461">
+                <div class="data-Ynr58t data" data-id="0:462">
+                  <p
+                    class="daily-breakfast-for proximanova-bold-black-20px"
+                    data-id="0:463"
+                  >
+                    Daily breakfast for two (not available through in-room
+                    dining)
+                  </p>
+                  <div
+                    class="taxes-and-fees proximanova-bold-black-20px"
+                    data-id="0:464"
+                  >
+                    Taxes and fees
+                  </div>
+                  <div
+                    class="marriott-bonvoy-earning-pointsnights proximanova-bold-black-20px"
+                    data-id="0:465"
+                  >
+                    Marriott Bonvoy earning points/nights
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="data-tfb6Ik data" data-id="0:466">
+            <div class="data-Ak4H9P data" data-id="0:467">
+              <div class="price proximanova-bold-black-20px" data-id="0:468">
+                Price:
+              </div>
+              <div
+                class="x1738-usd proximanova-regular-normal-black-24px"
+                data-id="0:469"
+              >
+                $1,738 USD*
+              </div>
+              <p
+                class="per-room-based-on-do proximanova-regular-normal-black-20px"
+                data-id="0:470"
+              >
+                per room based on double occupancy (total stay, including taxes
+                and fees)
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="frame-31-AXSl1V" data-id="0:471">
+        <img
+          class="line-2"
+          data-id="0:472"
+          src="https://cdn.animaapp.com/projects/67d1d84184d1eac8ff8df047/releases/67d1e3da6284afade1df9831/img/line-2.svg"
+          anima-src="https://cdn.animaapp.com/projects/67d1d84184d1eac8ff8df047/releases/67d1e3da6284afade1df9831/img/line-2.svg"
+          alt="Line 2"
+        />
+      </div>
+      <div class="header-XYm0EK header" data-id="0:473">
+        <p
+          class="post-hotel-option-th-wWjdk0 adobecaslonpro-regular-normal-eerie-black-32px"
+          data-id="0:474"
+        >
+          Post-Hotel Option – The Dalmar, Fort Lauderdale, a Tribute Portfolio
+          Hotel
+        </p>
+        <div class="frame-14" data-id="0:475">
+          <div class="image" data-id="0:476">
+            <img
+              class="il_2024_-the-marina_001jpg-1"
+              data-id="0:477"
+              src="/inside-cruise.png"
+              alt="IL_2024_The Marina_001jpg 1"
+            />
+          </div>
+          <div class="data-k8gudA data" data-id="0:478">
+            <div class="dates" data-id="0:479">
+              <div class="data-r16NTn data" data-id="0:480">
+                <div
+                  class="check-in proximanova-bold-black-20px"
+                  data-id="0:481"
+                >
+                  Check-in:
+                </div>
+                <div
+                  class="april-13-2025 proximanova-regular-normal-black-24px"
+                  data-id="0:482"
+                >
+                  April 13, 2025
+                </div>
+              </div>
+              <div class="data-VIFKiy data" data-id="0:483">
+                <div
+                  class="check-out proximanova-bold-black-20px"
+                  data-id="0:484"
+                >
+                  Check-out:
+                </div>
+                <div
+                  class="april-14-2025 proximanova-regular-normal-black-24px"
+                  data-id="0:485"
+                >
+                  April 14, 2025
+                </div>
+              </div>
+            </div>
+            <div class="hotel-cke7vX" data-id="0:486">
+              <div class="data-7IAE1p data" data-id="0:487">
+                <div
+                  class="hotel-zhZlOW proximanova-bold-black-20px"
+                  data-id="0:488"
+                >
+                  Hotel:
+                </div>
+                <p
+                  class="the-dalmar-fort-laud proximanova-regular-normal-black-24px"
+                  data-id="0:489"
+                >
+                  The Dalmar, Fort Lauderdale, a Tribute Portfolio Hotel
+                </p>
+              </div>
+              <div class="data-nSqUtb data" data-id="0:490">
+                <div
+                  class="address proximanova-bold-black-20px"
+                  data-id="0:491"
+                >
+                  Address:
+                </div>
+                <p
+                  class="x299-north-federal-hi proximanova-regular-normal-black-24px"
+                  data-id="0:492"
+                >
+                  299 North Federal Highway, Fort Lauderdale, Florida, USA
+                </p>
+              </div>
+            </div>
+            <div class="room" data-id="0:493">
+              <div class="data-nBeK2L data" data-id="0:494">
+                <div
+                  class="room-category proximanova-bold-black-20px"
+                  data-id="0:495"
+                >
+                  Room Category:
+                </div>
+                <div
+                  class="capelo-guestroom proximanova-regular-normal-black-24px"
+                  data-id="0:496"
+                >
+                  Capelo Guestroom
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="package" data-id="0:497">
+        <div
+          class="package-includes adobecaslonpro-regular-normal-eerie-black-32px"
+          data-id="0:498"
+        >
+          Package Includes:
+        </div>
+        <div class="frame-28" data-id="0:499">
+          <div class="data-zrSQfe data" data-id="0:500">
+            <div class="frame-25" data-id="0:501">
+              <div class="room" data-id="0:502">
+                <div class="data-87Rrw6 data" data-id="0:503">
+                  <div
+                    class="hotel-accommodation proximanova-bold-black-20px"
+                    data-id="0:504"
+                  >
+                    Hotel accommodation
+                  </div>
+                </div>
+              </div>
+              <div class="data-wt8WRK data" data-id="0:505">
+                <div class="data-iHFqDs data" data-id="0:506">
+                  <div
+                    class="pre-voyage-transfers proximanova-bold-black-20px"
+                    data-id="0:507"
+                  >
+                    Pre-voyage transfers
+                  </div>
+                </div>
+                <div class="frame-26" data-id="0:508">
+                  <div class="ellipse-5" data-id="0:509"></div>
+                  <p
+                    class="shared-transfer-from proximanova-regular-normal-black-20px"
+                    data-id="0:510"
+                  >
+                    Shared transfer from the hotel to the pier
+                  </p>
+                </div>
+                <div class="frame-27" data-id="0:511">
+                  <div class="ellipse-5" data-id="0:512"></div>
+                  <p
+                    class="private-transfer-fro proximanova-regular-normal-black-20px"
+                    data-id="0:513"
+                  >
+                    Private transfer from the airport to the hotel
+                  </p>
+                </div>
+              </div>
+              <div class="room" data-id="0:514">
+                <div class="data-DeAVpU data" data-id="0:515">
+                  <p
+                    class="daily-breakfast-for proximanova-bold-black-20px"
+                    data-id="0:516"
+                  >
+                    Daily breakfast for two (not available through in-room
+                    dining)
+                  </p>
+                  <div
+                    class="taxes-and-fees proximanova-bold-black-20px"
+                    data-id="0:517"
+                  >
+                    Taxes and fees
+                  </div>
+                  <div
+                    class="marriott-bonvoy-earning-pointsnights proximanova-bold-black-20px"
+                    data-id="0:518"
+                  >
+                    Marriott Bonvoy earning points/nights
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="data-QLGjdd data" data-id="0:519">
+            <div class="data-fCGrES data" data-id="0:520">
+              <div class="price proximanova-bold-black-20px" data-id="0:521">
+                Price:
+              </div>
+              <div
+                class="x1738-usd proximanova-regular-normal-black-24px"
+                data-id="0:522"
+              >
+                $1,738 USD*
+              </div>
+              <p
+                class="per-room-based-on-do proximanova-regular-normal-black-20px"
+                data-id="0:523"
+              >
+                per room based on double occupancy (total stay, including taxes
+                and fees)
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="frame-30-AXSl1V" data-id="0:524">
+        <img
+          class="line-2"
+          data-id="0:525"
+          src="https://cdn.animaapp.com/projects/67d1d84184d1eac8ff8df047/releases/67d1e3da6284afade1df9831/img/line-2.svg"
+          anima-src="https://cdn.animaapp.com/projects/67d1d84184d1eac8ff8df047/releases/67d1e3da6284afade1df9831/img/line-2.svg"
+          alt="Line 2"
+        />
+      </div>
+      <div class="header-IGfI8D header" data-id="0:526">
+        <p
+          class="i-would-be-delighted-MSfdlp proximanova-regular-normal-eerie-black-24px"
+          data-id="0:527"
+        >
+          I would be delighted to confirm these hotel packages for you to ensure
+          your transition to and from the yacht is seamless.&nbsp; As
+          availability is limited, it is best we are in touch right
+          away.&nbsp;<br />Please don’t hesitate to reach out with any questions
+          or concerns—it is my pleasure to assist you.
+        </p>
+        <div
+          class="kind-regards-MSfdlp proximanova-regular-normal-eerie-black-24px"
+          data-id="0:528"
+        >
+          Kind Regards,
+        </div>
+      </div>
+      <div class="header-gJZuBW header" data-id="0:529">
+        <div class="frame-21-TUh8ee" data-id="0:530">
+          <img
+            class="rashed-moslem-u0-w4xy-wqqa-unsplash-1-mxMWEx"
+            data-id="0:531"
+            src="https://cdn.animaapp.com/projects/67d1d84184d1eac8ff8df047/releases/67d1e3da6284afade1df9831/img/rashed-moslem-u0w4xy-wqqa-unsplash-1.png"
+            anima-src="https://cdn.animaapp.com/projects/67d1d84184d1eac8ff8df047/releases/67d1e3da6284afade1df9831/img/rashed-moslem-u0w4xy-wqqa-unsplash-1.png"
+            alt="rashed-moslem-U0W4xy-WQQA-unsplash 1"
+          />
+        </div>
+        <div class="frame-4-TUh8ee frame-4" data-id="0:532">
+          <div
+            class="john-doe-xJqjP9 adobecaslonpro-regular-normal-eerie-black-32px"
+            data-id="0:533"
+          >
+            John Doe
+          </div>
+          <div class="flex-container-0534-xJqjP9" data-id="0:534-container">
+            <div
+              class="text0-0534-J5XyO1 proximanova-regular-normal-eerie-black-20px"
+              data-id="0:534-text0"
+            >
+              <span
+                class="span0-7eLgc7 proximanova-regular-normal-eerie-black-20px"
+                >0000-0000-0000<br
+              /></span>
+            </div>
+            <div
+              class="text1-0534-J5XyO1 proximanova-regular-normal-eerie-black-20px"
+              data-id="0:534-text1"
+            >
+              <span
+                class="span1-iPLhrJ proximanova-regular-normal-eerie-black-20px"
+                >johndoe@gmail.com</span
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="header-eonbX8 header" data-id="0:535">
+        <p
+          class="lorem-ipsum-dolor-sit-amet-consectetur-RV59LM adobecaslonpro-regular-normal-eerie-black-32px"
+          data-id="0:536"
+        >
+          Lorem ipsum dolor sit amet consectetur.
+        </p>
+      </div>
+      <div class="header-YFsH9I header" data-id="0:537">
+        <div class="frame-11-q4dAPo frame-11" data-id="0:538">
+          <div class="frame-9-AUmtC8" data-id="0:539">
+            <div
+              class="lorem-ipsum-HxbSqA lorem-ipsum proximanova-bold-white-14px"
+              data-id="0:540"
+            >
+              Lorem ipsum
+            </div>
+            <div
+              class="lorem-ipsum proximanova-regular-normal-white-14px"
+              data-id="0:541"
+            >
+              Lorem ipsum
+            </div>
+            <div
+              class="lorem-ipsum proximanova-regular-normal-white-14px"
+              data-id="0:542"
+            >
+              Lorem ipsum
+            </div>
+            <div
+              class="lorem-ipsum proximanova-regular-normal-white-14px"
+              data-id="0:543"
+            >
+              Lorem ipsum
+            </div>
+          </div>
+          <div class="frame-11-AUmtC8 frame-11" data-id="0:544">
+            <div
+              class="lorem-ipsum-0wSSdk lorem-ipsum proximanova-bold-white-14px"
+              data-id="0:545"
+            >
+              Lorem ipsum
+            </div>
+            <div
+              class="lorem-ipsum proximanova-regular-normal-white-14px"
+              data-id="0:546"
+            >
+              Lorem ipsum
+            </div>
+            <div
+              class="lorem-ipsum proximanova-regular-normal-white-14px"
+              data-id="0:547"
+            >
+              Lorem ipsum
+            </div>
+            <div
+              class="lorem-ipsum proximanova-regular-normal-white-14px"
+              data-id="0:548"
+            >
+              Lorem ipsum
+            </div>
+          </div>
+          <div class="frame-12-AUmtC8" data-id="0:549">
+            <div
+              class="lorem-ipsum-edlcEZ lorem-ipsum proximanova-bold-white-14px"
+              data-id="0:550"
+            >
+              Lorem ipsum
+            </div>
+            <div
+              class="lorem-ipsum proximanova-regular-normal-white-14px"
+              data-id="0:551"
+            >
+              Lorem ipsum
+            </div>
+            <div
+              class="lorem-ipsum proximanova-regular-normal-white-14px"
+              data-id="0:552"
+            >
+              Lorem ipsum
+            </div>
+            <div
+              class="lorem-ipsum proximanova-regular-normal-white-14px"
+              data-id="0:553"
+            >
+              Lorem ipsum
+            </div>
+          </div>
+          <div class="frame-10-AUmtC8" data-id="0:554">
+            <div
+              class="lorem-ipsum-HUqtuk lorem-ipsum proximanova-bold-white-14px"
+              data-id="0:555"
+            >
+              Lorem ipsum
+            </div>
+            <div
+              class="lorem-ipsum proximanova-regular-normal-white-14px"
+              data-id="0:556"
+            >
+              Lorem ipsum
+            </div>
+            <div
+              class="lorem-ipsum proximanova-regular-normal-white-14px"
+              data-id="0:557"
+            >
+              Lorem ipsum
+            </div>
+            <div
+              class="lorem-ipsum proximanova-regular-normal-white-14px"
+              data-id="0:558"
+            >
+              Lorem ipsum
+            </div>
+          </div>
+        </div>
+        <div class="flex-container-0559-q4dAPo" data-id="0:559-container">
+          <div
+            class="text0-0559-tsN71L proximanova-regular-normal-white-14px"
+            data-id="0:559-text0"
+          >
+            <span class="span0-OxT1E0 proximanova-regular-normal-white-14px"
+              >Lorem ipsum dolor sit amet consectetur. Mauris amet lacus euismod
+              purus porttitor lacus lectus vitae tortor. Cursus sit magna platea
+              hac faucibus at quam dignissim pellentesque. Mauris nec non sit
+              nam ipsum. Augue dignissim sed ut volutpat viverra tortor. Quis
+              metus urna orci non. Enim lectus commodo congue massa nulla cursus
+              natoque pharetra. Sem vitae in in tellus amet id.<br
+            /></span>
+          </div>
+          <div
+            class="text1-0559-tsN71L proximanova-regular-normal-white-14px"
+            data-id="0:559-text1"
+          >
+            <span class="span1-Swq6s2 proximanova-regular-normal-white-14px"
+              >Eu pulvinar tellus molestie mi sit in elementum dignissim dictum.
+              Nisi amet turpis vestibulum ut sed semper in sit. Volutpat
+              dignissim lectus nunc imperdiet consequat massa magna. Non
+              venenatis curabitur neque netus morbi elementum pretium. Orci
+              faucibus euismod facilisis integer. Donec fermentum tincidunt ante
+              magna vitae vel diam aenean. Faucibus porta vulputate risus ut
+              integer. Praesent arcu facilisi nunc sit nulla aliquam
+              ullamcorper.</span
+            >
+          </div>
+        </div>
+        <div class="frame-8-q4dAPo" data-id="0:560">
+          <img
+            class="instagram-CjJexf"
+            data-id="0:561"
+            src="/Instagram.png"
+            alt="Instagram"
+          /><img
+            class="facebook-CjJexf"
+            data-id="0:565"
+            src="/Facebook.png"
+            alt="Facebook"
+          /><img
+            class="x-logo-CjJexf"
+            data-id="0:566"
+            src="/X logo.png"
+            alt="X logo"
+          />
+        </div>
+      </div>
+    </div>
+   
+  </body>
+</html>
